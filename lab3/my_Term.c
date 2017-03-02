@@ -9,7 +9,7 @@ int mt_gotoXY(int x, int y){
     char buf[15];
     char *gotoxy = "\E[%d;%dH";
 
-    if (sprintf(buf, gotoxy, x, y) > 0) {
+    if (sprintf(buf, gotoxy, y, x) > 0) {
 	if (write(1, buf, strlen(buf)) == -1)
 	    return -1;
     }
