@@ -19,18 +19,21 @@ int mt_gotoXY(int x, int y){
 int mt_getscreensize (int *rows, int *cols){
     struct winsize size;
     
-    if (ioctl(1, TIOCGWINSZ, (char *) &size) < 0){
+    if (!ioctl(1, TIOCGWINSZ, &size) < 0)
+    {
+		
 		perror("ioctl");
 		return -1;
 	}
-	*rows = size.ws_row;
-    *cols = size.ws_col;
 
+    *rows = size.ws_row;
+    *cols = size.ws_col ;
+    
     return 0;
 }
 
 int mt_setfgcolor (enum colors color){
-    char *color_text[] = {"\E[30m", "\E[31m", "\E[32m", "\E[33m", "\E[34m",  "\E[35m", "\E[37m"};
+    char *color_text[] = {"\E[30m", "\E[31m", "\E[32m", "\E[33m", "\E[34m",  "\E[35m", "\E[37m", "\E[39m"};
     
     switch(color) {
 	case black:
@@ -54,6 +57,9 @@ int mt_setfgcolor (enum colors color){
 	case white:
 	    write(1, color_text[6], strlen(color_text[6]));       
 	    break;
+	case standart:
+	    write(1, color_text[7], strlen(color_text[7]));       
+	    break;
 	default:
 	    printf("Color not found\n");
 	    break;
@@ -61,7 +67,7 @@ int mt_setfgcolor (enum colors color){
 }
 
 int mt_setbgcolor (enum colors color){
-    char *color_fons[] = {"\E[40m", "\E[41m", "\E[42m", "\E[43m", "\E[44m",  "\E[45m", "\E[47m"};
+    char *color_fons[] = {"\E[40m", "\E[41m", "\E[42m", "\E[43m", "\E[44m",  "\E[45m", "\E[47m", "\E[49m"};
     
     switch(color) {
 	case black:
@@ -84,6 +90,9 @@ int mt_setbgcolor (enum colors color){
 	    break;
 	case white:
 	    write(1, color_fons[6], strlen(color_fons[6]));       
+	    break;
+	case standart:
+	    write(1, color_fons[7], strlen(color_fons[7]));       
 	    break;
 	default:
 	    printf("Color not found\n");
