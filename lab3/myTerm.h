@@ -15,7 +15,8 @@ enum colors{
 	yellow,
 	blue,
 	pink,
-	white
+	white,
+	standart
 };
 
 int mt_clrscr ();
