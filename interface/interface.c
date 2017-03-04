@@ -1,6 +1,6 @@
 #include "interface.h" 
 
-void print_interface(){
+void print_frames(){	
 	//memory
 	bc_box(1, 1, 62, 12);
 	mt_gotoXY(27, 1);
@@ -28,10 +28,33 @@ void print_interface(){
 	mt_gotoXY(49,13);
 	write(1, " Keys: ", 7);
 	
-	sc_memoryInit();
-	
-	
-	
-	
 	mt_gotoXY(1,23);
+}
+
+void printMemory(){
+	int i, y = 2, x = 2;
+	char buf[6];
+    char *memElem = "+%.4X";
+	
+	for(i = 0; i < MEMSIZE; i++){
+		if (i != 0 && i % 10 == 0){
+			x += 6;
+			y = 2;
+		}
+		mt_gotoXY(x,y);
+		if (sprintf(buf, memElem, my_memory[i]) > 0) {
+			if (write(1, buf, strlen(buf)) == -1)
+				exit(1);
+		}
+		y++;		
+	}
+	mt_gotoXY(1,23);
+}
+
+void printFlags(){
+	
+	mt_gotoXY(70,11);
+	
+	write(1,"P O M T E", 9);
+
 }
