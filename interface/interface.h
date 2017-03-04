@@ -5,7 +5,9 @@
 #include "lab3/myTerm.h"
 #include "lab4/myBigChars.h"
 
-void print_interface();
+void print_frames();
+void printMemory();
+void printFlags();
 
 
 #endif
